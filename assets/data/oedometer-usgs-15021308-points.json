@@ -1,0 +1,163 @@
+{
+  "dataset": "USGS Garcia and Waite, GeoTac Frame 1",
+  "doi": "10.5281/zenodo.15021308",
+  "recordUrl": "https://zenodo.org/records/15021308",
+  "originalDownload": "https://zenodo.org/api/records/15021308/files/HighStressPermeameter_HSP_ComparisonWithOedometers.xlsx/content",
+  "originalFile": "oedometer-usgs-15021308-original.xlsx",
+  "originalSha256": "c77b7842e0667b59fed5f06584b753460b9a3956f9dcd8b0ac8ae770bc9eeeca",
+  "originalMd5": "39a45dd1a10cf4b4b2f55f3d8a009322",
+  "retrieved": "2026-09-22",
+  "license": {
+    "repository": "CC BY 4.0",
+    "url": "https://creativecommons.org/licenses/by/4.0/",
+    "usgsMetadataStatement": "Public domain (CC0-1.0) data from the U.S. Government are freely redistributable with proper metadata and source attribution.",
+    "attribution": "Garcia, Adrian V.; Waite, William F. (2025). Compressibility and permeability data for kaolin: a comparison between 1-dimensional oedometers and a high-stress permeameter. U.S. Geological Survey and U.S. Department of Energy. doi:10.5281/zenodo.15021308."
+  },
+  "provenance": "Direct numeric extraction of stage-end table cells; not digitized from a figure and not raw instrument time-series. Original stress in MPa converted to kPa by ×1000 in app; e dimensionless. Workbook row order preserved. No sorting, fitting or smoothing.",
+  "material": "Single batch of Peerless 2 air-floated kaolin in deionized water",
+  "device": "GeoTac Automated Load Frame, Frame 1; fixed-ring oedometer",
+  "initialAspectRatio": 2.5,
+  "publishedCompression": {
+    "index": 0.421,
+    "standardDeviation": 0.01,
+    "lowerStressMPa": 0.048062362521877365,
+    "upperStressMPa": 5.9975925679977,
+    "source": "Consolidation!B28:G28"
+  },
+  "publishedRecompression": {
+    "index": 0.08734452701626332,
+    "lowerStressMPa": 0.34131498689073536,
+    "upperStressMPa": 1.0211357838253685,
+    "source": "Consolidation!B38:G38"
+  },
+  "points": [
+    {
+      "number": 1,
+      "sourceRow": 8,
+      "stressMPa": 0.027819255219418932,
+      "e": 1.5694009223781145,
+      "stressCell": "Consolidation!O8",
+      "voidRatioCell": "Consolidation!N8"
+    },
+    {
+      "number": 2,
+      "sourceRow": 9,
+      "stressMPa": 0.048062362521877365,
+      "e": 1.4667269742613758,
+      "stressCell": "Consolidation!O9",
+      "voidRatioCell": "Consolidation!N9"
+    },
+    {
+      "number": 3,
+      "sourceRow": 10,
+      "stressMPa": 0.10479344769834117,
+      "e": 1.291736593606031,
+      "stressCell": "Consolidation!O10",
+      "voidRatioCell": "Consolidation!N10"
+    },
+    {
+      "number": 4,
+      "sourceRow": 11,
+      "stressMPa": 0.341314986890735,
+      "e": 1.0697040671356617,
+      "stressCell": "Consolidation!O11",
+      "voidRatioCell": "Consolidation!N11"
+    },
+    {
+      "number": 5,
+      "sourceRow": 12,
+      "stressMPa": 1.0211357838253685,
+      "e": 0.8854001927542371,
+      "stressCell": "Consolidation!O12",
+      "voidRatioCell": "Consolidation!N12"
+    },
+    {
+      "number": 6,
+      "sourceRow": 13,
+      "stressMPa": 0.34131498689073536,
+      "e": 0.9143391328380862,
+      "stressCell": "Consolidation!O13",
+      "voidRatioCell": "Consolidation!N13"
+    },
+    {
+      "number": 7,
+      "sourceRow": 14,
+      "stressMPa": 1.0211357838253685,
+      "e": 0.8727694147953169,
+      "stressCell": "Consolidation!O14",
+      "voidRatioCell": "Consolidation!N14"
+    },
+    {
+      "number": 8,
+      "sourceRow": 15,
+      "stressMPa": 3.4131498689073534,
+      "e": 0.684266193213445,
+      "stressCell": "Consolidation!O15",
+      "voidRatioCell": "Consolidation!N15"
+    },
+    {
+      "number": 9,
+      "sourceRow": 16,
+      "stressMPa": 5.9975925679977,
+      "e": 0.5810757381218471,
+      "stressCell": "Consolidation!O16",
+      "voidRatioCell": "Consolidation!N16"
+    },
+    {
+      "number": 10,
+      "sourceRow": 17,
+      "stressMPa": 2.0366532139570626,
+      "e": 0.6328773865889332,
+      "stressCell": "Consolidation!O17",
+      "voidRatioCell": "Consolidation!N17"
+    },
+    {
+      "number": 11,
+      "sourceRow": 18,
+      "stressMPa": 0.5997592567997695,
+      "e": 0.7015364405133583,
+      "stressCell": "Consolidation!O18",
+      "voidRatioCell": "Consolidation!N18"
+    },
+    {
+      "number": 12,
+      "sourceRow": 19,
+      "stressMPa": 0.1404588423418664,
+      "e": 0.7800400446309634,
+      "stressCell": "Consolidation!O19",
+      "voidRatioCell": "Consolidation!N19"
+    }
+  ],
+  "branches": {
+    "loading": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "reloading": [
+      6,
+      7
+    ],
+    "continued": [
+      7,
+      8,
+      9
+    ],
+    "unloading": [
+      9,
+      10,
+      11,
+      12
+    ]
+  },
+  "notShownAsASeparateSelection": {
+    "initialUnloading": [
+      5,
+      6
+    ],
+    "reason": "A single short unloading segment remains in the full chronological plot; use final unloading to explore stress-level effects with several pairs."
+  },
+  "timeSheetScope": "USGS sheet-level metadata explicitly links Log Time Permeability Example to GeoTac Frame 1 at the 0.05 MPa stress step (Permeability!R9), but its Stress column description simultaneously says no specimen is present. This unresolved metadata conflict is retained for review. The original workbook keeps the time series, but the app does not expose it as a specimen response or infer t50, cv or k."
+}

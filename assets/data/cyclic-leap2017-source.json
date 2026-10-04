@@ -1,0 +1,53 @@
+{
+  "title": "LEAP-2017 GWU Laboratory Tests",
+  "authors": [
+    "Mohamed El Ghoraiby",
+    "Hanna Park",
+    "Majid T. Manzari"
+  ],
+  "doi": "10.17603/DS2210X",
+  "datasetUrl": "https://www.designsafe-ci.org/data/browser/public/designsafe.storage.published/PRJ-1783",
+  "license": "ODC-BY 1.0",
+  "licenseUrl": "https://opendatacommons.org/licenses/by/1-0/",
+  "rightsEvidence": "https://api.datacite.org/dois/10.17603/DS2210X",
+  "sourceFilename": "eo_0_515_po_100_csr_0_325.txt",
+  "sourcePath": "/published-data/PRJ-1783/Project--leap-2017-gwu-laboratory-tests/data/Cyclic Stress-Controlled Triaxial Tests/eo_0_515_po_100/eo_0_515_po_100_csr_0_325.txt",
+  "storedFilename": "cyclic-leap2017-csr0325.tsv",
+  "sha256": "4ba2335dbfa992c86670f4612b56579f102110404daa5901f285f7d056d96e85",
+  "sourceRows": 6001,
+  "retrieved": "2026-09-22",
+  "modifications": "The TSV bytes are unchanged; selected CSV adds source line and pore pressure calculations; app embeds the actual first 2521 records (0 to 42 min) and offers eight original record selections. No interpolation, digitization, synthetic response, or correction of measurement offsets.",
+  "selectedSourceLines": [
+    2,
+    304,
+    604,
+    1024,
+    1804,
+    2404,
+    2417,
+    2449
+  ],
+  "columnDictionary": {
+    "time_min": "time in minutes",
+    "eps_a": "axial strain, percent",
+    "eps_v": "volumetric strain, percent",
+    "sigmaP_3_kPa": "effective confining stress in kPa",
+    "sigma_3_kPa": "total confining stress in kPa",
+    "sigma_d_kPa": "deviator stress in kPa"
+  },
+  "reference": "El Ghoraiby, Park and Manzari (2020), Physical and Mechanical Properties of Ottawa F65 Sand, doi:10.1007/978-3-030-22818-7_3, §§3.3.1 and 3.3.3 and Table 3.10; Manzari et al. (2020), doi:10.1007/978-3-030-22818-7_8 §8.2.1 and Table 8.1.",
+  "testConditions": {
+    "testDate": "2016-09-30",
+    "material": "Ottawa F65 sand",
+    "loading": "undrained stress-controlled cyclic triaxial",
+    "csr": 0.325,
+    "nominalConfiningEffectiveStress_kPa": 100,
+    "periodMinutes": 1,
+    "targetGroupVoidRatio": 0.515,
+    "actualConsolidatedVoidRatio": 0.507,
+    "B": 0.959,
+    "publishedRuUnityCycles": 18,
+    "published2_5PercentAxialStrainCycles": 41
+  },
+  "porePressureRatioDefinition": "u=sigma_3_kPa-sigmaP_3_kPa; deltaU=u-u(first row); ru=deltaU/99.74. The app does not substitute the source plotting script mean-effective-stress reduction ratio for this definition."
+}

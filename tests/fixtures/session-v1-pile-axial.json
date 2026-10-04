@@ -1,0 +1,37 @@
+{
+  "format": "soil-sense-experiment",
+  "version": 1,
+  "experiment": {
+    "module": "pile-axial",
+    "question": "capacity",
+    "current": {
+      "length": 20,
+      "diameter": 0.6,
+      "layerDepth": 8,
+      "tau1": 35,
+      "tau2": 70,
+      "toeStress": 2500,
+      "modulus": 30,
+      "shaft50": 5,
+      "toe50": 30,
+      "headLoad": 500,
+      "groundSettlement": 50,
+      "settlementDepth": 10
+    },
+    "baseline": {
+      "length": 20,
+      "diameter": 0.6,
+      "layerDepth": 8,
+      "tau1": 35,
+      "tau2": 70,
+      "toeStress": 2500,
+      "modulus": 30,
+      "shaft50": 5,
+      "toe50": 30,
+      "headLoad": 500,
+      "groundSettlement": 50,
+      "settlementDepth": 10
+    },
+    "compare": false
+  }
+}

@@ -1,0 +1,9 @@
+import collectSources from '../source-manifest.cjs';import test from 'node:test';import assert from 'node:assert/strict';import vm from 'node:vm';import {readFileSync,readdirSync} from 'node:fs';import {fileURLToPath} from 'node:url';import path from 'node:path';
+const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../src');
+const manifest=collectSources(path.resolve(root,'..'));
+const source=manifest.scriptFiles.filter(f=>f!=='app.js').map(f=>readFileSync(path.join(root,f),'utf8').replace(/^export /gm,'')).join('\n');
+const descriptors=vm.runInNewContext(source+'\nExtensionLabs',{structuredClone,performance,TextEncoder});
+const groups=new Set(['properties','water','mechanics','retaining','foundations','practice']);
+test('every registered extension belongs to a visible navigation group and has a unique key',()=>{const keys=new Set(['soil','stress','foundation']);for(const lab of descriptors){assert.ok(groups.has(lab.meta.navGroup),`${lab.key}: unknown group ${lab.meta.navGroup}`);assert.ok(!keys.has(lab.key),`duplicate ${lab.key}`);keys.add(lab.key);assert.ok(lab.meta.questions.length>0);assert.ok(lab.compute&&lab.controls&&lab.render);}});
+test('all registered default question states compute successfully',()=>{for(const lab of descriptors)for(const[q]of lab.meta.questions){const r=lab.compute(structuredClone(lab.defaults),q);assert.equal(r.valid,true,`${lab.key}/${q}: ${JSON.stringify(r.errors)}`);}});
+test('declared input comparison labels and active bounds refer to state fields',()=>{for(const lab of descriptors){for(const f of Object.keys(lab.labels||{}))assert.ok(f in lab.defaults,`${lab.key} missing labeled default ${f}`);for(const[q]of lab.meta.questions){for(const f of lab.activeFields?.(lab.defaults,q)||Object.keys(lab.bounds||{}))assert.ok(f in lab.defaults,`${lab.key}/${q}: active field ${f} has no default`);}}});

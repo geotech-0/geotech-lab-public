@@ -1,0 +1,53 @@
+{
+  "format": "soil-sense-experiment",
+  "version": 2,
+  "experiment": {
+    "module": "slope",
+    "question": "infinite",
+    "current": {
+      "beta": 28,
+      "depth": 2,
+      "cohesion": 5,
+      "phi": 33,
+      "gammaMoist": 18,
+      "gammaSat": 20,
+      "waterFraction": 0.25,
+      "surcharge": 0,
+      "weakDepth": 3,
+      "strongDepth": 1.5,
+      "waterDepth": 0.4,
+      "phiStrong": 35,
+      "phiWeak": 15,
+      "gamma": 20,
+      "wedgeLength": 12,
+      "faceAngle": 30,
+      "slipAngle": 20,
+      "initialWater": 3,
+      "finalWater": 0.5,
+      "stage": "rapid"
+    },
+    "baseline": {
+      "beta": 22,
+      "depth": 2,
+      "cohesion": 5,
+      "phi": 30,
+      "gammaMoist": 18,
+      "gammaSat": 20,
+      "waterFraction": 0.75,
+      "surcharge": 0,
+      "weakDepth": 3,
+      "strongDepth": 1.5,
+      "waterDepth": 0.4,
+      "phiStrong": 35,
+      "phiWeak": 15,
+      "gamma": 20,
+      "wedgeLength": 12,
+      "faceAngle": 30,
+      "slipAngle": 20,
+      "initialWater": 3,
+      "finalWater": 0.5,
+      "stage": "rapid"
+    },
+    "compare": true
+  }
+}

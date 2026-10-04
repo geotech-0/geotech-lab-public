@@ -1,0 +1,7 @@
+{
+  "sourceDistribution": "public",
+  "omittedOriginals": [
+    "assets/data/oedometer-usgs-15021308-original.xlsx",
+    "assets/compaction/usace-em1110-3-141-page3-3.pdf"
+  ]
+}

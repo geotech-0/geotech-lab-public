@@ -1,0 +1,24 @@
+{
+  "checks": 4500,
+  "maxStressError": 0.0013238463070024409,
+  "maxForceError": 3.637978807091713e-12,
+  "maxMomentError": 7.275957614183426e-12,
+  "classificationMassConversion": {
+    "original": {
+      "valid": true,
+      "symbol": "SP-SC",
+      "fines": 7.92481250360578
+    },
+    "converted": {
+      "valid": true,
+      "panPercent": 7.9248125036057795,
+      "minSieve": 0.075
+    },
+    "after": {
+      "valid": true,
+      "symbol": "SP-SC",
+      "fines": 7.924812503605779,
+      "errors": []
+    }
+  }
+}

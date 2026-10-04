@@ -1,0 +1,11 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {OedometerReading as O} from '../src/oedometer-reading.mjs';
+const near=(a,b,t=1e-10)=>assert.ok(Math.abs(a-b)<=t,`${a} != ${b}`);
+test('virgin interval returns independently hand-calculated secant and consistent units',()=>{const r=O.read();assert.ok(r.valid);assert.equal(r.kind,'Cc');near(r.index,.18/Math.log10(4));near(r.mv,.18/(1.87*600));near(r.modulus,6233.33333333333,1e-7);near(r.mv*r.modulus,1);});
+test('same compression index does not imply same interval volume compressibility',()=>{const a=O.read({testFirst:3,testLast:4}),b=O.read({testFirst:4,testLast:5});near(a.index,b.index);assert.ok(a.mv>b.mv);assert.ok(a.modulus<b.modulus);});
+test('recompression and crossing a yield region are not labeled virgin compression',()=>{const r=O.read({testFirst:1,testLast:3}),m=O.read({testFirst:1,testLast:5});assert.equal(r.kind,'Cr');assert.equal(m.kind,'mixed');assert.ok(m.index>r.index&&m.index<O.read().index);});
+test('unloading uses chronological records and signed increments',()=>{const r=O.read({testBranch:'unloading',testFirst:1,testLast:3});assert.ok(r.valid);assert.equal(r.kind,'Cs');near(r.deltaStress,-600);near(r.deltaE,-.03);assert.ok(r.strain<0&&r.mv>0&&r.modulus>0);});
+test('every selectable pair conserves the one-dimensional specimen volume relation',()=>{for(const testBranch of ['loading','unloading'])for(let testFirst=1;testFirst<5;testFirst++)for(let testLast=testFirst+1;testLast<=5;testLast++){const r=O.read({testBranch,testFirst,testLast}),h1=.02,h2=h1*(1+r.last.e)/(1+r.first.e);assert.ok(r.valid);near((h1-h2)/h1,r.mv*r.deltaStress);near(r.index*Math.log10(r.last.stress/r.first.stress),r.first.e-r.last.e);}});
+test('undefined, reversed, fractional, nonfinite and unsupported selections are rejected',()=>{for(const v of [null,[],{testBranch:'reloading'},{testFirst:0},{testLast:6},{testFirst:5,testLast:5},{testFirst:4,testLast:2},{testFirst:2.5},{testLast:NaN},{testFirst:'3'}])assert.equal(O.read(v).valid,false,JSON.stringify(v));});
+test('inactive history inputs cannot alter or invalidate fixed records',()=>{assert.deepEqual(O.read({cc:-1,preconsolidation:NaN}),O.read());const r=O.read();r.points[0].e=999;assert.equal(O.read().points[0].e,.9);});

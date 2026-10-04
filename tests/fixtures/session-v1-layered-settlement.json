@@ -1,0 +1,27 @@
+{
+  "format": "soil-sense-experiment",
+  "version": 1,
+  "experiment": {
+    "module": "layered-settlement",
+    "question": "contribution",
+    "current": {
+      "pressure": 100,
+      "h1": 2,
+      "h2": 4,
+      "m1": 10000,
+      "m2": 5000,
+      "observedMm": 80,
+      "toleranceMm": 5
+    },
+    "baseline": {
+      "pressure": 100,
+      "h1": 2,
+      "h2": 4,
+      "m1": 10000,
+      "m2": 5000,
+      "observedMm": 80,
+      "toleranceMm": 5
+    },
+    "compare": false
+  }
+}

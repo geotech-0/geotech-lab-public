@@ -1,0 +1,47 @@
+const DrainedEvidenceLabs=(()=>{
+ const colors=['var(--color-action-primary)','var(--color-accent-purple)'];
+ const link=(url,label)=>`<a href="${url}" target="_blank" rel="noopener">${label}</a>`;
+ const path=(records,x,y)=>records.map((r,i)=>`${i?'L':'M'}${x(r).toFixed(3)} ${y(r).toFixed(3)}`).join('');
+ function seriesPlot(r,b){
+  const x=a=>66+536*a/20,yq=q=>154-110*(q+10)/460,yv=v=>293-94*(v+10)/12;
+  let s='<text x="66" y="24">축차응력 q (kPa)</text><text x="66" y="187">체적변형률 εv (%) · 압축 + / 팽창 −</text>';
+  for(const t of [0,5,10,15,20])s+=`<line class="grid" x1="${x(t)}" x2="${x(t)}" y1="44" y2="154"/><line class="grid" x1="${x(t)}" x2="${x(t)}" y1="199" y2="293"/><text x="${x(t)}" y="312" text-anchor="middle">${t}</text>`;
+  for(const t of [0,200,400])s+=`<line class="grid" x1="66" x2="602" y1="${yq(t)}" y2="${yq(t)}"/><text x="55" y="${yq(t)+4}" text-anchor="end">${t}</text>`;
+  for(const t of [-10,-5,0])s+=`<line class="grid" x1="66" x2="602" y1="${yv(t)}" y2="${yv(t)}"/><text x="55" y="${yv(t)+4}" text-anchor="end">${t}</text>`;
+  if(b)s+=`<line class="baseline" x1="${x(b.strain)}" x2="${x(b.strain)}" y1="44" y2="154"/><line class="baseline" x1="${x(b.strain)}" x2="${x(b.strain)}" y1="199" y2="293"/>`;
+  s+=`<line x1="${x(r.strain)}" x2="${x(r.strain)}" y1="44" y2="154" stroke="var(--color-text-muted)" stroke-dasharray="2 4"/><line x1="${x(r.strain)}" x2="${x(r.strain)}" y1="199" y2="293" stroke="var(--color-text-muted)" stroke-dasharray="2 4"/>`;
+  r.samples.forEach((sample,i)=>{
+   s+=`<path d="${path(sample.records,a=>x(a.strain),a=>yq(a.q))}" fill="none" stroke="${colors[i]}" stroke-width="2.7"/><path d="${path(sample.records,a=>x(a.strain),a=>yv(a.volumeStrain))}" fill="none" stroke="${colors[i]}" stroke-width="2.7"/>`;
+   if(b){const p=b.samples[i].current;s+=`<circle cx="${x(p.strain)}" cy="${yq(p.q)}" r="5.5" class="baseline"/><circle cx="${x(p.strain)}" cy="${yv(p.volumeStrain)}" r="5.5" class="baseline"/>`;}
+   const p=sample.current;s+=`<circle cx="${x(p.strain)}" cy="${yq(p.q)}" r="4.5" fill="${colors[i]}" stroke="white" stroke-width="1.4"/><circle cx="${x(p.strain)}" cy="${yv(p.volumeStrain)}" r="4.5" fill="${colors[i]}" stroke="white" stroke-width="1.4"/>`;
+  });
+  s+='<text x="602" y="334" text-anchor="end">축변형률 εa (%)</text>';
+  return svgWrap(s,'느슨한 모래와 조밀한 모래의 실제 배수 삼축시험 편찬 곡선, 같은 축변형률의 축차응력 및 체적변형률')+'<div class="chart-caption">두 곡선의 점은 같은 εa 기록입니다. εv의 부호는 시작 대비 체적, 곡선의 오르내림은 그 구간의 변화를 뜻합니다.</div>';
+ }
+ function stressPath(r,b){
+  const x=p=>66+536*(p-90)/160,y=q=>285-236*(q+10)/460;
+  let s='<text x="66" y="25">축차응력 q (kPa)</text>';
+  for(const t of [100,150,200,250])s+=`<line class="grid" x1="${x(t)}" x2="${x(t)}" y1="49" y2="285"/><text x="${x(t)}" y="308" text-anchor="middle">${t}</text>`;
+  for(const t of [0,100,200,300,400])s+=`<line class="grid" x1="66" x2="602" y1="${y(t)}" y2="${y(t)}"/><text x="55" y="${y(t)+4}" text-anchor="end">${t}</text>`;
+  r.samples.forEach((sample,i)=>{
+   s+=`<path d="${path(sample.records,a=>x(a.p),a=>y(a.q))}" fill="none" stroke="${colors[i]}" stroke-width="${i?2.4:4}" ${i?'stroke-dasharray="7 4"':''}/>`;
+   if(b){const p=b.samples[i].current;s+=`<circle cx="${x(p.p)}" cy="${y(p.q)}" r="7" class="baseline"/>`;}
+   const p=sample.current;s+=`<circle cx="${x(p.p)}" cy="${y(p.q)}" r="5.5" fill="${colors[i]}" stroke="white" stroke-width="1.5"/>`;
+  });
+  s+='<text x="602" y="333" text-anchor="end">3D 평균 유효응력 p′ (kPa)</text>';
+  return svgWrap(s,'실제 유효 축응력과 방사응력으로 계산한 느슨한 모래와 조밀한 모래의 q-p 유효응력 경로')+'<div class="chart-caption">조밀: 보라 파선 · σr′가 거의 일정하여 경로가 겹칩니다. 같은 경로여도 변형률·체적변화는 다릅니다.</div>';
+ }
+ function results(r){
+  const rows=[['축차응력 q','q','kPa',2],['평균 유효응력 p′','p','kPa',2],['최대 전단응력 τmax','maxShear','kPa',2],['체적변형률 εv','volumeStrain','%',3]];
+  return `<div style="width:100%"><table class="raw-table" style="margin-top:0;font-size:13px"><caption style="text-align:left;padding-bottom:8px">εa=${fmt(r.strain,1)}%의 두 기록</caption><thead><tr><th style="text-align:left">관측·계산값</th><th style="color:${colors[0]}">느슨 TMD2</th><th style="color:${colors[1]}">조밀 TMD22</th></tr></thead><tbody>${rows.map(([label,key,unit,digits])=>`<tr><th scope="row" style="text-align:left;font-weight:500">${label} (${unit})</th>${r.samples.map(s=>`<td>${fmt(s.current[key],digits)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ }
+ const totalVolume=s=>Math.abs(s.current.volumeStrain)<1e-10?'시작과 같은 체적':s.current.volumeStrain>0?`시작보다 ${fmt(s.current.volumeStrain,3)}% 압축`:`시작보다 ${fmt(-s.current.volumeStrain,3)}% 팽창`;
+ const recentVolume=s=>s.volumeIncrement===null?'이전 기록 없음':Math.abs(s.volumeIncrement)<1e-10?'직전 기록과 같은 체적':s.volumeIncrement>0?'직전 0.1% 구간에서 압축 방향':'직전 0.1% 구간에서 팽창 방향';
+ return [{key:'drained-evidence',meta:{name:'배수전단 실험자료',sub:'첨두·체적·응력경로',group:'응력과 변형 / 실제 배수전단 자료',navGroup:'mechanics',kind:'data',displayOnly:true,words:'느슨 조밀 첨두 임계 잔류 수축 팽창 다일러턴시 배수 삼축 응력경로 실제 실험 데이터 Karlsruhe',questions:[['strain','저항·체적변화'],['path','유효응력 경로']]},defaults:{strain:6.2},bounds:{strain:[0,20,'관찰 축변형률 εa','%']},labels:{strain:['관찰 축변형률 εa','%']},activeFields:()=>['strain'],compute:d=>DrainedEvidence.read(d),
+ controls(d){return `<div class="parameter-grid">${fieldControl('strain','관찰 축변형률 εa',d.strain,0,20,.1,'%','0.1% 간격의 실제 편찬 기록을 선택합니다.')}</div><table class="raw-table"><thead><tr><th style="text-align:left">고정 시험</th><th>느슨 TMD2</th><th>조밀 TMD22</th></tr></thead><tbody><tr><th style="text-align:left">초기 Dr (%)</th><td>20.9</td><td>84.6</td></tr><tr><th style="text-align:left">초기 e0</th><td>0.9753</td><td>0.7351</td></tr><tr><th style="text-align:left">초기 σr′ (kPa)</th><td>100.18</td><td>99.20</td></tr></tbody></table><p class="parameter-note">같은 Karlsruhe 모래의 별도 시험 두 개입니다. 밀도 사이를 연속 슬라이더로 섞으면 측정하지 않은 곡선이 생기므로, 여기서는 실제 기록 시점만 옮깁니다.</p>`;},
+ render({result:r,baseline:b,question:q}){
+  const a=r.loose.current,c=r.dense.current,stress=q==='path',source=DrainedEvidence.source;
+  return {title:'느슨·조밀 모래는 같은 변형률에서 어떻게 다를까요?',conditions:['Karlsruhe fine sand','등방압밀 · 단조 배수 삼축','편찬·수치화 자료 · 각 201점'],plotTitle:`${stress?'유효응력 경로':'저항과 체적변화'} · εa=${fmt(r.strain,1)}%`,legend:'<span class="legend-item"><i></i>느슨 Dr 20.9%</span><span class="legend-item"><i style="border-color:var(--color-accent-purple)"></i>조밀 Dr 84.6%</span>',comparisonPlot:!!b,chart:stress?stressPath(r,b):seriesPlot(r,b),results:results(r),explanation:stress?`같은 εa=${fmt(r.strain,1)}%에서 느슨한 시료의 q는 <strong>${fmt(a.q,2)} kPa</strong>, 조밀한 시료는 <strong>${fmt(c.q,2)} kPa</strong>입니다.<span class="hint">방사응력이 거의 일정하면 q=3(p′−σr′) 관계로 두 경로가 가까워집니다. 경로가 겹친다는 이유만으로 같은 강성·체적변형을 갖는 것은 아닙니다.</span>`:`느슨한 시료는 <strong>${totalVolume(r.loose)}</strong>, 조밀한 시료는 <strong>${totalVolume(r.dense)}</strong>입니다.<span class="hint">느슨: ${recentVolume(r.loose)} · 조밀: ${recentVolume(r.dense)}. 누적 체적변형률의 부호와 현재 변화 방향을 구별하세요.</span>`,theory:`<h3>실제 응력 두 열로 계산하는 현재 위치</h3><div class="theory-formula">q=σv′−σr′, p′=(σv′+2σr′)/3, τmax=|q|/2</div><div class="theory-grid">${r.samples.map((s,i)=>`<div><strong style="color:${colors[i]}">${s.name} ${s.id}</strong><div class="theory-formula">q=${fmt(s.current.sigmaV,2)}−${fmt(s.current.sigmaR,2)}=${fmt(s.current.q,2)} kPa<br>p′=(${fmt(s.current.sigmaV,2)}+2×${fmt(s.current.sigmaR,2)})/3=${fmt(s.current.p,2)} kPa<br>τmax=${fmt(s.current.maxShear,2)} kPa · εv=${fmt(s.current.volumeStrain,4)}%</div></div>`).join('')}</div><p>p′는 3차원 평균 유효응력입니다. Mohr 원 중심 (σv′+σr′)/2와 구별합니다. q는 축차응력이며 전단면의 전단응력 그 자체가 아닙니다. εv는 원자료 열을 그대로 읽습니다.</p><h3>관측 첨두·시험 종점·임계·잔류는 다릅니다</h3><p>조밀 시료의 기록 내 최대 q는 <strong>${fmt(r.dense.peak.q,2)} kPa (εa=${fmt(r.dense.peak.strain,1)}%)</strong>입니다. 느슨 시료의 최대 ${fmt(r.loose.peak.q,2)} kPa는 20% 종료점에 있어, 기록 내부의 첨두가 확인된 경우와 다릅니다.</p><p class="theory-meta">이 자료의 20% 종점은 임계상태나 잔류강도로 선언하지 않습니다. 임계상태 판단에는 전단이 계속되는 동안 응력과 체적이 거의 일정한지 확인해야 합니다. 두 기록 모두 마지막 1% 구간에서 εv가 계속 변합니다. 첨두 이후의 값이라는 이유만으로 잔류강도라고 부르지 않습니다.</p>`,method:`<div><h3>시험 조건과 자료 성격</h3><p>${link(source.paperUrl,'Wichtmann & Triantafyllidis (2016), Acta Geotechnica 11:739–761, Part I')}, §3.2·Table 3·Fig.4의 TMD2와 TMD22입니다. 기본 공시체는 지름 약 100 mm·높이 약 100 mm, 단부 마찰을 줄인 단판, 공중낙사 성형, 등방압밀 후 축변위속도 0.1 mm/min의 단조 배수 삼축시험입니다. 초기 e0·Dr는 압밀을 마친 전단 시작 상태입니다.</p><p>화면은 원 논문의 계산모형 곡선이 아니라 시험자료 편찬본의 기록을 읽습니다. ${link(source.databaseUrl,'Huan Wang, Sand Triaxial Test Database (4TU.ResearchData)')}, 저장소 v3의 triaxial test dataset_rev2.zip, 01_Karlsruhe_fine_sand.csv에서 두 시험만 선택했습니다. ${link(source.licenseUrl,'CC BY 4.0')}에 따라 편찬자·원 논문을 함께 표시합니다.</p><p>편찬 README는 대부분의 자료가 원문 그림의 디지타이즈와 반올림을 거쳤다고 설명합니다. 이 재료의 개별 취득방법은 별도 지정되지 않았으므로 원시 계측 로그라고 부르지 않습니다. 각 시험 0–20%, 0.1% 간격의 201점만 선택하며 밀도 간 보간·곡선 평활화·외삽은 하지 않습니다.</p></div><div><h3>수치 처리와 해석의 범위</h3><p>응력은 kPa의 유효응력, 변형률은 %이며 압축이 양수입니다. 매 기록의 σr′와 σv′로 q·p′·τmax를 다시 계산합니다. σr′를 일괄 100 kPa로 치환하지 않으며 TMD2 첫 점의 작은 음의 q=−0.16 kPa도 보존합니다. 두 시료의 실제 초기 응력이 조금 다르므로 완전히 동일한 구속압 비교라고 주장하지 않습니다.</p><p>실선은 인접한 편찬 기록을 연결한 표시입니다. 커서는 기록점만 선택합니다. 직전 0.1% 구간의 체적 방향은 인접 εv 차이이며, 잡음에 민감한 미분 팽창각이나 접선강성을 추정하지 않습니다. 마지막 1%의 Δεv는 느슨 ${fmt(r.loose.finalOnePercentVolumeChange,4)}%p, 조밀 ${fmt(r.dense.finalOnePercentVolumeChange,4)}%p입니다.</p><p>원 논문도 대변형에서 q가 여전히 감소하여 잔류값이 완전히 도달하지 않았다고 설명합니다. 논문에 별도로 제시된 임계 마찰각은 이 두 종료점에서 새로 계산하지 않습니다. 일반 임계상태선·잔류강도, 응력수준·입도·구조를 바꾼 곡선, 비배수 응답, 국부 전단대의 변형은 이 화면의 예측 범위가 아닙니다.</p><p>${link('assets/data/drained-karlsruhe-selected.csv','선택한 402점 CSV')} · ${link('assets/data/drained-provenance.md','원본·변환·라이선스 기록')}. 앱의 계산·그래프 데이터는 내장되어 오프라인에서도 작동합니다.</p></div>`};
+ }
+ }];
+})();

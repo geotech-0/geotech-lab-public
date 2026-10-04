@@ -1,0 +1,22 @@
+{
+  "modelVersion": 2,
+  "height": 8,
+  "embedment": 4,
+  "EI": 300000,
+  "mesh": 0.5,
+  "increment": 0.25,
+  "soil": { "gamma": 18, "gammaSat": 20, "c": 0, "phi": 30, "kh": 18000, "k0": 0.5 },
+  "fill": { "gamma": 18, "gammaSat": 20, "c": 0, "phi": 30, "kh": 12000, "k0": 0.5, "initialPressure": 0, "pressureModel": "soil" },
+  "water": { "retained": 8, "excavation": 8, "restore": 8 },
+  "surcharge": 0,
+  "clearance": 0.5,
+  "releaseLinked": true,
+  "releaseClearance": 0.5,
+  "supports": [
+    { "id": "support-1", "type": "anchor", "z": 1.5, "stiffness": 50000, "preload": 40, "preloadLoss": 0, "angle": 15, "spacing": 2, "length": 12, "capacity": 1000, "retained": false },
+    { "id": "support-2", "type": "anchor", "z": 3.5, "stiffness": 50000, "preload": 40, "preloadLoss": 0, "angle": 15, "spacing": 2, "length": 12, "capacity": 1000, "retained": false },
+    { "id": "support-3", "type": "anchor", "z": 5.5, "stiffness": 50000, "preload": 40, "preloadLoss": 0, "angle": 15, "spacing": 2, "length": 12, "capacity": 1000, "retained": false }
+  ],
+  "plan": { "lx": 20, "ly": 14, "walerEI": 100000, "stations": 3, "corners": [0, 1, 2, 3], "membersPerCorner": 1, "offset": 2, "spacing": 1.2 },
+  "observation": { "phase": "excavation", "depth": 0, "eventSide": "after", "mode": "history", "resultMode": "total", "wallId": "A", "position": 0.5 }
+}

@@ -1,0 +1,389 @@
+/** Actual Amaliahaven P02/DP1 stage-end records. CC BY 4.0; see docs/pile-evidence.md. */
+export const PileEvidence=(()=>{
+ const source=Object.freeze({title:'Amaliahaven P02 / DP1',url:'https://doi.org/10.4121/8a27f456-66f0-4e3b-a0ac-4f776926644d.v1',license:'CC BY 4.0',licenseUrl:'https://creativecommons.org/licenses/by/4.0/',article:'https://doi.org/10.1061/JGGEFK.GTENG-12026',raw:'assets/data/pile-evidence-amaliahaven-P02_topside.csv',datums:'assets/data/pile-evidence-amaliahaven-P02_datums.csv',pileDetails:'assets/data/pile-evidence-amaliahaven-pile-details.csv',extracted:'assets/data/pile-evidence-amaliahaven-points.json',sha256:'6bdb4447ce8e41fa090fe7c16560b38172e14a3115430666d244910cd7d2060c',rawRecordCount:6942,pileWidth:.4,pileLength:31.74,equivalentDiameter:.45,date:'2019-12-03–04',pileTopNAP:4,pileTipNAP:-27.74});
+ const rows=[
+ {
+  "number": 1,
+  "stage": "refSLT",
+  "start": "03/12/2019 08:35",
+  "end": "03/12/2019 08:39",
+  "timestamp": "03/12/2019 08:39",
+  "sourceRow": 158,
+  "sourceIndex": 156,
+  "load": 223.1652609,
+  "lvdt": [
+   1.73e-17,
+   -0.009130435,
+   -0.00173913,
+   -0.007391304
+  ]
+ },
+ {
+  "number": 2,
+  "stage": "5%(0)",
+  "start": "03/12/2019 09:15",
+  "end": "03/12/2019 09:23",
+  "timestamp": "03/12/2019 09:23",
+  "sourceRow": 422,
+  "sourceIndex": 420,
+  "load": 379.1652609,
+  "lvdt": [
+   0.28,
+   0.060869565,
+   0.17826087,
+   0.182608696
+  ]
+ },
+ {
+  "number": 3,
+  "stage": "step 1",
+  "start": "03/12/2019 09:41",
+  "end": "03/12/2019 10:13",
+  "timestamp": "03/12/2019 10:13",
+  "sourceRow": 722,
+  "sourceIndex": 720,
+  "load": 911.1652609,
+  "lvdt": [
+   1.45,
+   0.980869565,
+   1.56826087,
+   1.572608696
+  ]
+ },
+ {
+  "number": 4,
+  "stage": "5%(1)",
+  "start": "03/12/2019 10:22",
+  "end": "03/12/2019 10:28",
+  "timestamp": "03/12/2019 10:28",
+  "sourceRow": 812,
+  "sourceIndex": 810,
+  "load": 355.1652609,
+  "lvdt": [
+   0.72,
+   0.360869565,
+   0.58826087,
+   0.592608696
+  ]
+ },
+ {
+  "number": 5,
+  "stage": "step 2",
+  "start": "03/12/2019 10:51",
+  "end": "03/12/2019 11:19",
+  "timestamp": "03/12/2019 11:19",
+  "sourceRow": 1118,
+  "sourceIndex": 1116,
+  "load": 1823.165261,
+  "lvdt": [
+   4.43,
+   3.610869565,
+   4.61826087,
+   4.632608696
+  ]
+ },
+ {
+  "number": 6,
+  "stage": "5%(2)",
+  "start": "03/12/2019 11:35",
+  "end": "03/12/2019 11:38",
+  "timestamp": "03/12/2019 11:38",
+  "sourceRow": 1232,
+  "sourceIndex": 1230,
+  "load": 359.1652609,
+  "lvdt": [
+   0.98,
+   0.490869565,
+   0.97826087,
+   0.982608696
+  ]
+ },
+ {
+  "number": 7,
+  "stage": "step 3",
+  "start": "03/12/2019 11:57",
+  "end": "03/12/2019 12:28",
+  "timestamp": "03/12/2019 12:28",
+  "sourceRow": 1532,
+  "sourceIndex": 1530,
+  "load": 2748.165261,
+  "lvdt": [
+   8.27,
+   6.970869565,
+   8.19826087,
+   8.232608696
+  ]
+ },
+ {
+  "number": 8,
+  "stage": "5%(3)",
+  "start": "03/12/2019 12:48",
+  "end": "03/12/2019 12:53",
+  "timestamp": "03/12/2019 12:53",
+  "sourceRow": 1682,
+  "sourceIndex": 1680,
+  "load": 340.1652609,
+  "lvdt": [
+   1.16,
+   0.630869565,
+   1.04826087,
+   1.052608696
+  ]
+ },
+ {
+  "number": 9,
+  "stage": "step 4",
+  "start": "03/12/2019 13:09",
+  "end": "03/12/2019 14:10",
+  "timestamp": "03/12/2019 14:10",
+  "sourceRow": 2144,
+  "sourceIndex": 2142,
+  "load": 3663.165261,
+  "lvdt": [
+   12.24,
+   10.42086957,
+   12.23826087,
+   12.2826087
+  ]
+ },
+ {
+  "number": 10,
+  "stage": "5%(4)",
+  "start": "03/12/2019 14:28",
+  "end": "03/12/2019 14:33",
+  "timestamp": "03/12/2019 14:33",
+  "sourceRow": 2282,
+  "sourceIndex": 2280,
+  "load": 498.1652609,
+  "lvdt": [
+   1.71,
+   0.890869565,
+   1.73826087,
+   1.742608696
+  ]
+ },
+ {
+  "number": 11,
+  "stage": "step 5",
+  "start": "03/12/2019 14:53",
+  "end": "03/12/2019 15:52",
+  "timestamp": "03/12/2019 15:52",
+  "sourceRow": 2756,
+  "sourceIndex": 2754,
+  "load": 4580.165261,
+  "lvdt": [
+   17.02,
+   14.74086957,
+   16.94826087,
+   17.0126087
+  ]
+ },
+ {
+  "number": 12,
+  "stage": "5%(5)",
+  "start": "03/12/2019 16:16",
+  "end": "03/12/2019 16:18",
+  "timestamp": "03/12/2019 16:18",
+  "sourceRow": 2912,
+  "sourceIndex": 2910,
+  "load": 344.1652609,
+  "lvdt": [
+   2.12,
+   1.210869565,
+   2.07826087,
+   2.082608696
+  ]
+ },
+ {
+  "number": 13,
+  "stage": "step 6",
+  "start": "03/12/2019 16:42",
+  "end": "03/12/2019 17:43",
+  "timestamp": "03/12/2019 17:43",
+  "sourceRow": 3422,
+  "sourceIndex": 3420,
+  "load": 5482.165261,
+  "lvdt": [
+   22.44,
+   19.71086957,
+   22.27826087,
+   22.3626087
+  ]
+ },
+ {
+  "number": 14,
+  "stage": "5%(6)",
+  "start": "03/12/2019 18:11",
+  "end": "03/12/2019 18:14",
+  "timestamp": "03/12/2019 18:14",
+  "sourceRow": 3608,
+  "sourceIndex": 3606,
+  "load": 306.1652609,
+  "lvdt": [
+   2.96,
+   1.890869565,
+   2.83826087,
+   2.842608696
+  ]
+ },
+ {
+  "number": 15,
+  "stage": "step 7",
+  "start": "03/12/2019 18:54",
+  "end": "03/12/2019 19:48",
+  "timestamp": "03/12/2019 19:48",
+  "sourceRow": 4172,
+  "sourceIndex": 4170,
+  "load": 6406.165261,
+  "lvdt": [
+   28.65,
+   25.51086957,
+   28.04826087,
+   28.1526087
+  ]
+ },
+ {
+  "number": 16,
+  "stage": "5%(7)",
+  "start": "03/12/2019 20:23",
+  "end": "03/12/2019 20:29",
+  "timestamp": "03/12/2019 20:29",
+  "sourceRow": 4419,
+  "sourceIndex": 4417,
+  "load": 288.1652609,
+  "lvdt": [
+   4.63,
+   3.340869565,
+   4.14826087,
+   4.162608696
+  ]
+ },
+ {
+  "number": 17,
+  "stage": "step 8 (0)",
+  "start": "03/12/2019 20:59",
+  "end": "03/12/2019 21:03",
+  "timestamp": "03/12/2019 21:03",
+  "sourceRow": 4623,
+  "sourceIndex": 4621,
+  "load": 7319.165261,
+  "lvdt": [
+   39.38,
+   34.93086957,
+   38.43826087,
+   38.5826087
+  ]
+ },
+ {
+  "number": 18,
+  "stage": "5%(8_0)",
+  "start": "03/12/2019 21:57",
+  "end": "03/12/2019 22:00",
+  "timestamp": "03/12/2019 22:00",
+  "sourceRow": 4966,
+  "sourceIndex": 4964,
+  "load": 316.1652609,
+  "lvdt": [
+   7.37,
+   1.860869565,
+   11.21826087,
+   11.2526087
+  ]
+ },
+ {
+  "number": 19,
+  "stage": "step 4(2)",
+  "start": "03/12/2019 22:17",
+  "end": "03/12/2019 22:29",
+  "timestamp": "03/12/2019 22:29",
+  "sourceRow": 5140,
+  "sourceIndex": 5138,
+  "load": 3703.165261,
+  "lvdt": [
+   20.02,
+   12.23086957,
+   24.17826087,
+   24.2726087
+  ]
+ },
+ {
+  "number": 20,
+  "stage": "step 6(2)",
+  "start": "03/12/2019 22:43",
+  "end": "03/12/2019 22:45",
+  "timestamp": "03/12/2019 22:45",
+  "sourceRow": 5236,
+  "sourceIndex": 5234,
+  "load": 5508.165261,
+  "lvdt": [
+   28.24,
+   19.75086957,
+   32.73826087,
+   32.8626087
+  ]
+ },
+ {
+  "number": 21,
+  "stage": "step 8",
+  "start": "03/12/2019 23:22",
+  "end": "04/12/2019 00:58",
+  "timestamp": "04/12/2019 00:58",
+  "sourceRow": 6034,
+  "sourceIndex": 6032,
+  "load": 7315.165261,
+  "lvdt": [
+   50.13,
+   43.76086957,
+   56.23826087,
+   56.4526087
+  ]
+ },
+ {
+  "number": 22,
+  "stage": "step 9",
+  "start": "04/12/2019 01:10",
+  "end": "04/12/2019 01:44",
+  "timestamp": "04/12/2019 01:44",
+  "sourceRow": 6310,
+  "sourceIndex": 6308,
+  "load": 7776.165261,
+  "lvdt": [
+   69.73,
+   66.25086957,
+   77.38826087,
+   77.6826087
+  ]
+ },
+ {
+  "number": 23,
+  "stage": "step 10",
+  "start": "04/12/2019 01:53",
+  "end": "04/12/2019 02:01",
+  "timestamp": "04/12/2019 02:01",
+  "sourceRow": 6412,
+  "sourceIndex": 6410,
+  "load": 7977.165261,
+  "lvdt": [
+   79.64,
+   77.16086957,
+   87.65826087,
+   88.0026087
+  ]
+ }
+];
+ const points=Object.freeze(rows.map(p=>Object.freeze({...p,lvdt:Object.freeze(p.lvdt),settlement:p.lvdt.reduce((a,b)=>a+b,0)/4,sensorSpread:Math.max(...p.lvdt)-Math.min(...p.lvdt)})));
+ const defaults=Object.freeze({pileEvidencePoint:12});
+ function read(input={}){
+  if(!input||typeof input!=='object'||Array.isArray(input))return {valid:false,errors:['실제 시험의 기록 번호를 선택하세요.']};
+  const number=input.pileEvidencePoint===undefined?defaults.pileEvidencePoint:input.pileEvidencePoint;
+  if(typeof number!=='number'||!Number.isInteger(number)||number<1||number>points.length)return {valid:false,errors:['실제 시험 기록 번호는 1–23의 정수로 선택하세요.']};
+  const current=points[number-1],previous=number>1?points[number-2]:null;
+  const deltaLoad=previous?current.load-previous.load:null,deltaSettlement=previous?current.settlement-previous.settlement:null;
+  const stiffness=previous&&Math.abs(deltaSettlement)>1e-9?deltaLoad/deltaSettlement:null;
+  const priorMaximum=number>1?Math.max(...points.slice(0,number-1).map(p=>p.load)):current.load;
+  const hadUnloading=points.slice(0,number-1).some((p,i)=>i>0&&p.load<points[i-1].load);
+  const branch=!previous?'기준계측':deltaLoad<0?'제하':current.load<=priorMaximum?'재재하':hadUnloading?(previous.load<priorMaximum?'재재하·증재':'추가 재하'):'재하';
+  return {valid:true,errors:[],model:'amaliahaven-p02-endpoints-v1',source,points,number,current,previous,deltaLoad,deltaSettlement,stiffness,branch,priorMaximum};
+ }
+ return Object.freeze({source,points,defaults,read});
+})();

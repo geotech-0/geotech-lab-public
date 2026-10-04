@@ -1,0 +1,33 @@
+{
+  "format": "soil-sense-experiment",
+  "version": 1,
+  "experiment": {
+    "module": "earth-pressure",
+    "question": "pressure",
+    "current": {
+      "height": 6,
+      "phi": 30,
+      "gamma": 18,
+      "gammaSat": 20,
+      "waterDepth": 6,
+      "surcharge": 10,
+      "state": "active",
+      "ocr": 1,
+      "delta": 15,
+      "beta": 10
+    },
+    "baseline": {
+      "height": 6,
+      "phi": 30,
+      "gamma": 18,
+      "gammaSat": 20,
+      "waterDepth": 6,
+      "surcharge": 10,
+      "state": "active",
+      "ocr": 1,
+      "delta": 15,
+      "beta": 10
+    },
+    "compare": false
+  }
+}

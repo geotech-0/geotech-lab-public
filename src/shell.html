@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Interactive geotechnical learning models: explore layered settlement, monitoring and staged excavation. English introduction with Korean interactive labs.">
+<title>흙의 감각 — 지반공학 실험실</title>
+<style>/*APP_STYLE*/</style>
+</head>
+<body>
+<a class="skip" href="#main">실험으로 바로가기</a>
+<header class="app-header" lang="ko">
+ <a class="brand" href="#soil" aria-label="흙의 감각 처음으로">흙의 감각</a>
+ <span class="header-description">지반공학 학습 실험실</span>
+ <button id="visitor-guide-open" type="button" hidden>Guide / 소개</button>
+ <div id="visitor-language" class="visitor-language" role="group" aria-label="Introduction language / 소개 언어" hidden><button type="button" data-visitor-language="en" lang="en">English</button><button type="button" data-visitor-language="ko" lang="ko">한국어</button></div>
+ <span id="save-status" role="status" aria-live="polite">준비됨</span>
+</header>
+<section id="visitor-guide" class="visitor-guide" aria-labelledby="visitor-title" tabindex="-1" hidden></section>
+<div id="lab-workspace" class="layout" lang="ko">
+ <aside class="sidebar" aria-label="학습 실험실 탐색">
+  <details class="navigation-shell" open>
+   <summary class="mobile-nav-toggle"><svg class="ui-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3 15H21M3 9H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span>실험 목록</span><svg class="ui-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19 9L12 16L5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg></summary>
+   <div class="nav-content">
+    <p class="sidebar-title">학습 실험실</p>
+    <p class="tagline">입력값을 바꾸며<br>토질과 기초의 관계를 살펴보세요.</p>
+    <label class="sr-only" for="search">실험 찾기</label>
+    <div class="search-wrap"><svg class="ui-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="11.5" cy="11.5" r="7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17 17L20.5 20.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><input id="search" type="search" placeholder="입도, 소성, 수위, 침하…" autocomplete="off"></div>
+    <div class="nav-section-label">토질 · 기초공학</div>
+    <nav id="navigation" aria-label="실험 선택"></nav>
+    <div class="side-note">여러 조건을 함께 조절하고,<br>기준과 비교하며 관계를 확인하세요.</div>
+   </div>
+  </details>
+  <div class="side-bottom"><span>기본 단위</span><b>m · kN · kPa</b><p>입력과 비교는 이 기기에 저장됩니다.</p></div>
+ </aside>
+ <main id="main" tabindex="-1">
+  <div id="visitor-lab-note" class="visitor-lab-note" lang="en" hidden>Detailed labs, controls and explanations are in Korean. <button type="button" data-visitor-guide>English guide</button></div>
+  <section id="intro" class="intro"></section>
+  <div id="questions" class="questions" aria-label="학습 질문"></div>
+  <div class="experiment">
+   <section class="visual-panel" aria-label="실험 그림과 결과">
+    <div class="visual-frame">
+     <div class="plot-head"><h2 id="plot-title"></h2><div id="legend" class="legend"></div></div>
+     <div id="plot-tabs" class="view-tabs" aria-label="그래프 보기"></div>
+     <div id="chart" class="chart"></div>
+    </div>
+    <div id="results" class="results" aria-live="polite" aria-atomic="true"></div>
+    <div id="explanation" class="explanation"></div>
+    <div id="theory" class="theory-panel"></div>
+   </section>
+   <aside class="control-panel" aria-label="입력 조건">
+    <div class="eyebrow">입력 조건<span>실시간 반영</span></div><div id="controls"></div>
+    <div class="tools"><button id="undo" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 8H5V3M5.29102 16.3569C6.22284 17.7918 7.59014 18.8902 9.19218 19.4907C10.7942 20.0913 12.547 20.1624 14.1925 19.6937C15.8379 19.225 17.2893 18.2413 18.3344 16.8867C19.3795 15.5321 19.963 13.878 19.9989 12.1675C20.0347 10.4569 19.5211 8.78001 18.5337 7.38281C17.5462 5.98561 16.1366 4.942 14.5122 4.40479C12.8878 3.86757 11.1341 3.86499 9.5083 4.39795C7.88252 4.93091 6.47059 5.97095 5.47949 7.36556" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span>되돌리기</span></button><button id="reset" type="button"><svg class="ui-icon" aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M10 16H5V21M14 8H19V3M4.58301 9.0034C5.14369 7.61566 6.08244 6.41304 7.29255 5.53223C8.50266 4.65141 9.93686 4.12752 11.4298 4.02051C12.9227 3.9135 14.4147 4.2274 15.7381 4.92661C17.0615 5.62582 18.1612 6.68254 18.9141 7.97612M19.4176 14.9971C18.8569 16.3848 17.9181 17.5874 16.708 18.4682C15.4979 19.3491 14.0652 19.8723 12.5723 19.9793C11.0794 20.0863 9.58606 19.7725 8.2627 19.0732C6.93933 18.374 5.83882 17.3175 5.08594 16.0239" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg><span>처음으로</span></button></div>
+    <div class="compare-panel"><label class="check"><input type="checkbox" id="compare">기준과 비교</label><div id="compare-options" hidden><p id="compare-summary">기준은 직접 바꿀 때까지 유지됩니다.</p><button id="baseline" type="button">현재를 기준으로</button></div></div>
+   </aside>
+  </div>
+  <details id="method" class="method"><summary>계산 과정과 근거 <span>식 · 가정 · 출처</span></summary><div id="method-content"></div></details>
+  <footer>교육용 예제 · 표시된 가정 안에서 변화를 살펴보세요.<span>흙의 감각 · 개인 학습 실험실</span></footer>
+ </main>
+</div>
+<div id="announcer" class="sr-only" role="status" aria-live="polite"></div>
+<noscript>이 실험실은 JavaScript를 켜야 사용할 수 있습니다.</noscript>
+<script type="module">/*APP_SCRIPT*/</script>
+</body>
+</html>

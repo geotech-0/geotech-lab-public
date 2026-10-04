@@ -1,0 +1,182 @@
+{
+  "schema": "compaction-evidence-v1",
+  "title": "USACE EM 1110-3-141 Figure 3-1A: silty clay (CL), LL=37, PI=14",
+  "kind": "approximate-manual-digitization-of-plotted-test-symbols",
+  "dateAccessed": "2026-09-22",
+  "sourceDate": "1984-04-09",
+  "sourceUrl": "https://www.publications.usace.army.mil/portals/76/publications/engineermanuals/em_1110-3-141.pdf",
+  "retrievalMirror": "https://www.pdhonline.com/courses/c302/EM1110-3-141.pdf",
+  "sourcePdfSha256": "3f4f78c4397fe8e827ebfa8cb7904e79c249a2707cd04b9535ebd6a46b6ffc0d",
+  "page": {
+    "printed": "3-3",
+    "pdfPageOneBased": 20,
+    "extractedAsset": "usace-em1110-3-141-page3-3.pdf",
+    "extractedSha256": "1a82ad51fb4a1a59baca5a60b5e39b1e8fe57484ff0340e7a9b85e37bc34f278",
+    "imageSize": [
+      2552,
+      3303
+    ]
+  },
+  "calibration": {
+    "x5percent": 438,
+    "x25percent": 1112,
+    "y90pcf": 1297,
+    "y120pcf": 800,
+    "method": "Manually identify open triangle/square/circle centers in panel A; linear axis calibration; round w to 0.1 percentage point and density to 0.5 pcf. Original scan is slightly skewed."
+  },
+  "readingResolution": {
+    "waterContentPercentagePoints": 0.3,
+    "dryDensityPcf": 0.75,
+    "interpretation": "Conservative manual plot-reading allowance; not instrument accuracy or a statistical confidence interval."
+  },
+  "unitConversion": {
+    "pcfToKNm3": 0.1570874638462462,
+    "basis": "pound mass per cubic foot times standard gravity; 0.45359237 kg, 0.3048 m, 9.80665 m/s²"
+  },
+  "excluded": "Filled black after-soaking series; CBR panels B and C; smoothed source-curve extrema; all inferred values outside observed ranges.",
+  "reuse": {
+    "policyUrl": "https://www.usace.army.mil/Privacy-and-Security/",
+    "basis": "USACE public information may be copied or distributed unless otherwise specified, with attribution requested; this page credits U.S. Army Corps of Engineers and shows no third-party copyright notice. No Creative Commons license is asserted.",
+    "credit": "Source: U.S. Army Corps of Engineers, EM 1110-3-141 (1984), Figure 3-1A. Numerical transcription and SVG redrawing by Geotech Lab; no USACE endorsement."
+  },
+  "series": [
+    {
+      "blowsPerLayer": 12,
+      "marker": "triangle",
+      "points": [
+        {
+          "w": 10.1,
+          "dryDensityPcf": 95.5,
+          "pixelX": 609,
+          "pixelY": 1210
+        },
+        {
+          "w": 12.5,
+          "dryDensityPcf": 98.5,
+          "pixelX": 692,
+          "pixelY": 1155
+        },
+        {
+          "w": 13.7,
+          "dryDensityPcf": 100.5,
+          "pixelX": 730,
+          "pixelY": 1126
+        },
+        {
+          "w": 15.7,
+          "dryDensityPcf": 103.5,
+          "pixelX": 797,
+          "pixelY": 1076
+        },
+        {
+          "w": 16.9,
+          "dryDensityPcf": 104.5,
+          "pixelX": 840,
+          "pixelY": 1055
+        },
+        {
+          "w": 18.2,
+          "dryDensityPcf": 104.0,
+          "pixelX": 882,
+          "pixelY": 1063
+        },
+        {
+          "w": 19.9,
+          "dryDensityPcf": 103.0,
+          "pixelX": 939,
+          "pixelY": 1081
+        },
+        {
+          "w": 21.5,
+          "dryDensityPcf": 101.0,
+          "pixelX": 995,
+          "pixelY": 1112
+        }
+      ]
+    },
+    {
+      "blowsPerLayer": 26,
+      "marker": "square",
+      "points": [
+        {
+          "w": 10.0,
+          "dryDensityPcf": 102.5,
+          "pixelX": 608,
+          "pixelY": 1086
+        },
+        {
+          "w": 12.5,
+          "dryDensityPcf": 107.0,
+          "pixelX": 690,
+          "pixelY": 1016
+        },
+        {
+          "w": 13.7,
+          "dryDensityPcf": 109.0,
+          "pixelX": 730,
+          "pixelY": 982
+        },
+        {
+          "w": 15.3,
+          "dryDensityPcf": 111.0,
+          "pixelX": 784,
+          "pixelY": 950
+        },
+        {
+          "w": 17.9,
+          "dryDensityPcf": 108.0,
+          "pixelX": 873,
+          "pixelY": 997
+        },
+        {
+          "w": 19.9,
+          "dryDensityPcf": 105.0,
+          "pixelX": 939,
+          "pixelY": 1048
+        }
+      ]
+    },
+    {
+      "blowsPerLayer": 55,
+      "marker": "circle",
+      "points": [
+        {
+          "w": 10.0,
+          "dryDensityPcf": 109.5,
+          "pixelX": 608,
+          "pixelY": 970
+        },
+        {
+          "w": 12.5,
+          "dryDensityPcf": 114.0,
+          "pixelX": 690,
+          "pixelY": 902
+        },
+        {
+          "w": 14.2,
+          "dryDensityPcf": 116.0,
+          "pixelX": 747,
+          "pixelY": 864
+        },
+        {
+          "w": 15.6,
+          "dryDensityPcf": 115.0,
+          "pixelX": 796,
+          "pixelY": 886
+        },
+        {
+          "w": 17.3,
+          "dryDensityPcf": 112.0,
+          "pixelX": 853,
+          "pixelY": 933
+        },
+        {
+          "w": 19.9,
+          "dryDensityPcf": 106.5,
+          "pixelX": 939,
+          "pixelY": 1023
+        }
+      ]
+    }
+  ]
+}

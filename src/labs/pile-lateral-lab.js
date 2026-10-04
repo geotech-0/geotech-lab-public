@@ -1,0 +1,48 @@
+const PileLateralLabs = (() => {
+  const source='<a href="https://www.fhwa.dot.gov/publications/research/infrastructure/structures/04043/08.cfm" target="_blank" rel="noopener">FHWA-HRT-04-043 · §8.2–8.3</a>';
+  const beamSource='<a href="https://interactivetextbooks.citg.tudelft.nl/computational-modelling/structural_linear/euler_bernouilli.html" target="_blank" rel="noopener">TU Delft · Euler–Bernoulli 보 요소</a>';
+  const longSource='<a href="https://curate.curtin.edu.au/articles/conference_contribution/Initial_Soil_Springs_Stiffness_for_laterally_loaded_Piles/31518106" target="_blank" rel="noopener">Bahrami·Nikraz (2012) · 탄성 지지 말뚝</a>';
+  const path=(points,x,y)=>points.map((p,i)=>`${i?'L':'M'}${x(p).toFixed(2)} ${y(p).toFixed(2)}`).join(' ');
+  const chart=(r,b,q)=>{
+    const moment=q==='moment',value=p=>moment?p.moment:p.displacement*1000,unit=moment?'kN·m':'mm';
+    const points=[...r.profile,...(b?.profile||[])],maxDepth=Math.max(r.length,b?.length||0),maxAbs=Math.max(moment?1:.1,...points.map(p=>Math.abs(value(p))));
+    const min=moment?-1.12*maxAbs:Math.min(-.1*maxAbs,...points.map(value))*1.1,max=1.12*maxAbs;
+    const xx=p=>327+284*(value(p)-min)/(max-min),yy=p=>77+192*p.z/maxDepth,xzero=327+284*(0-min)/(max-min);
+    const bottom=yy({z:r.length});
+    let s='<text x="34" y="27" style="font-size:14px;fill:var(--color-text-primary)">단일 말뚝 · 지반 스프링</text>';
+    s+=`<text x="327" y="27" style="font-size:14px;fill:var(--color-text-primary)">${moment?'휨모멘트 M':'수평변위 w'} (${unit}) →</text><rect x="31" y="77" width="229" height="${bottom-77}" fill="var(--color-bg-surface-alt-1)"/><line x1="31" x2="260" y1="77" y2="77" stroke="var(--color-text-muted)" stroke-width="2"/><line x1="136" x2="136" y1="77" y2="${bottom}" stroke="var(--color-text-muted)" stroke-width="9"/>`;
+    for(let j=1;j<=7;j++){
+      const y=77+(bottom-77)*j/8;
+      s+=`<path d="M145 ${y} L161 ${y} L166 ${y-5} L175 ${y+5} L184 ${y-5} L193 ${y+5} L202 ${y-5} L207 ${y} L228 ${y}" stroke="var(--color-accent-purple)" stroke-width="1.5" fill="none"/><line x1="228" x2="228" y1="${y-7}" y2="${y+7}" stroke="var(--color-text-muted)"/>`;
+    }
+    if(r.head==='fixed')s+=`<rect x="115" y="66" width="42" height="13" rx="2" fill="var(--color-text-primary)"/><text x="48" y="51">θ₀=0 · 수평이동 가능</text>`;
+    else s+='<circle cx="136" cy="77" r="7" fill="white" stroke="var(--color-text-primary)" stroke-width="2"/><text x="47" y="51">회전 자유 · M₀=0</text>';
+    const arrowStart=170,arrowEnd=245;s+=`<line x1="${arrowStart}" x2="${arrowEnd}" y1="77" y2="77" stroke="var(--color-action-primary)" stroke-width="2.5"/><path d="M${arrowEnd-8} 72 L${arrowEnd} 77 L${arrowEnd-8} 82" fill="none" stroke="var(--color-action-primary)" stroke-width="2.5"/><text x="246" y="64" text-anchor="end">P=${fmt(r.load,0)}</text>`;
+    if(r.tip==='fixed'){
+      s+=`<line x1="104" x2="168" y1="${bottom}" y2="${bottom}" stroke="var(--color-text-primary)" stroke-width="3"/>`;
+      for(let i=0;i<7;i++)s+=`<line x1="${105+i*9}" x2="${99+i*9}" y1="${bottom}" y2="${bottom+9}" stroke="var(--color-text-muted)"/>`;
+    }
+    s+=`<text x="138" y="${bottom+26}" text-anchor="middle">${r.tip==='fixed'?'선단 w=0 · θ=0':'선단 M=0 · V=0'}</text>`;
+    for(let i=0;i<=4;i++){
+      const z=maxDepth*i/4,y=yy({z}),v=min+(max-min)*i/4,x=327+284*i/4;
+      s+=`<line class="grid" x1="327" x2="611" y1="${y}" y2="${y}"/><text x="317" y="${y+4}" text-anchor="end">${fmt(z,1)}</text><line class="grid" x1="${x}" x2="${x}" y1="77" y2="269"/><text x="${x}" y="292" text-anchor="middle">${fmt(v,moment?0:1)}</text>`;
+    }
+    s+=`<line x1="${xzero}" x2="${xzero}" y1="77" y2="269" stroke="var(--color-text-muted)" stroke-width="1.3"/><text x="${xzero}" y="63" text-anchor="middle">0</text>`;
+    if(b)s+=`<path d="${path(b.profile,xx,yy)}" fill="none" stroke="var(--color-text-muted)" stroke-width="2" stroke-dasharray="5 4"/>`;
+    s+=`<path d="${path(r.profile,xx,yy)}" fill="none" stroke="var(--color-action-primary)" stroke-width="3"/><circle cx="${xx(r.profile[0])}" cy="77" r="4.5" fill="var(--color-action-primary)"/><text x="35" y="323">왼쪽: 경계조건 도식 · 직경 미표현</text><text x="611" y="323" text-anchor="end">깊이 z (m) ↓</text>`;
+    return svgWrap(s,`길이 ${fmt(r.length)} m, ${r.head==='fixed'?'회전 구속':'회전 자유'} 두부 말뚝의 ${moment?'휨모멘트':'수평변위'} 깊이별 분포. 두부 변위 ${fmt(r.headDisplacementMm)} mm.`)+`<div class="chart-caption">오른쪽은 계산된 ${moment?'M':'w'}와 깊이의 서로 다른 축입니다. 변형 형상의 실제 각도가 아닙니다. 두부 ‘구속’은 회전만 막으며 수평변위는 허용합니다.${b?' 회색 점선은 저장한 조건입니다.':''}</div><div class="chart-caption">수치 확인 · ${r.coarseElements}→${r.elements} 요소 차이: 두부 w ${fmt(100*r.meshHeadRelative,4)}%, 최대 |M| ${fmt(100*r.meshMomentRelative,4)}% · 힘 잔차 ${Math.abs(r.forceResidual).toExponential(1)} kN · 모멘트 잔차 ${Math.abs(r.momentResidual).toExponential(1)} kN·m</div>`;
+  };
+  return [{key:'pile-lateral',meta:{name:'말뚝 횡하중',sub:'두부 구속·휨·지반강성',group:'기초와 말뚝 / 횡방향 거동',navGroup:'foundations',displayOnly:true,words:'말뚝 횡하중 수평력 두부 회전 자유 고정 구속 Winkler 윙클러 휨모멘트 변위 EI 반력 지반강성 장말뚝 짧은 말뚝',questions:[['displacement','수평변위'],['moment','휨모멘트']]},
+    defaults:{length:12,EI:200000,soilModulus:5000,load:100,head:'free',tip:'free',elements:64},
+    bounds:{length:[3,30,'말뚝 길이','m'],EI:[10000,1000000,'휨강성 EI','kN·m²'],soilModulus:[200,20000,'단위길이 반력계수','kN/m²'],load:[0,500,'두부 수평력','kN']},
+    activeFields:()=>['length','EI','soilModulus','load'],
+    labels:{length:['말뚝 길이','m'],EI:['휨강성 EI','kN·m²'],soilModulus:['지반 반력계수 kℓ','kN/m²'],load:['두부 수평력','kN'],head:['두부 회전 조건',''],tip:['선단 조건','']},
+    compute:d=>PileLateral.solve(d),
+    controls:d=>`<p class="parameter-note">지표 두부에 수평력 하나를 가합니다. 말뚝 한 본의 EI와, 길이당 지반 반력 p를 변위로 나눈 계수 kℓ를 입력합니다.</p><div class="parameter-grid">${fieldControl('load','두부 수평력 P',d.load,0,500,10,'kN')}${fieldControl('length','지중 말뚝 길이 L',d.length,3,30,.5,'m')}${fieldControl('EI','말뚝 휨강성 EI',d.EI,10,1000,10,'MN·m²','단면 E×I를 직접 입력',1000)}${fieldControl('soilModulus','선형 지반계수 kℓ',d.soilModulus,.2,20,.2,'MN/m²','p=kℓw · 기초용 kN/m³ 계수와 다름',1000)}</div><div class="select-row"><label for="pile-lateral-head">두부 회전</label><select id="pile-lateral-head" data-field="head"><option value="free" ${d.head==='free'?'selected':''}>자유 · 두부 모멘트 0</option><option value="fixed" ${d.head==='fixed'?'selected':''}>구속 · 회전 0, 수평이동 가능</option></select></div><details class="setting"><summary>선단 경계와 모형 범위</summary><div class="select-row"><label for="pile-lateral-tip">선단 조건</label><select id="pile-lateral-tip" data-field="tip"><option value="free" ${d.tip==='free'?'selected':''}>자유 · 전단력과 모멘트 0</option><option value="fixed" ${d.tip==='fixed'?'selected':''}>고정 · 변위와 회전 0</option></select></div><p class="note">선단 고정은 별도의 이상 경계입니다. 말뚝이 길거나 단단한 층에 닿았다는 이유로 자동 적용하지 않습니다. 지반은 깊이 전체에서 같은 양방향 선형 스프링이며 극한 저항이 없습니다. 64개 보 요소와 32개 요소 해를 비교합니다.</p></details>`,
+    render:({result:r,baseline:b,question:q})=>({title:'두부를 못 돌게 하면 변위와 휨모멘트가 함께 줄어들까요?',conditions:['단일 말뚝 · 지표 두부 하중','균질 선형 Winkler 지지','Euler–Bernoulli · 일정 EI','축력·비선형 p–y·군효과 제외'],plotTitle:q==='moment'?'두부 구속과 휨모멘트 분포':'두부 구속과 수평변위 분포',comparisonPlot:true,chart:chart(r,b,q),
+      results:metric('두부 수평변위',r.headDisplacementMm,'mm',b?.headDisplacementMm??null,true)+metric('두부 회전',r.headRotation*1000,'mrad',b?b.headRotation*1000:null)+metric('최대 |M|',r.maxMoment,'kN·m',b?.maxMoment??null)+metric('최대 |M| 깊이',r.maxMomentDepth,'m',b?.maxMomentDepth??null),
+      explanation:`<strong>${r.head==='fixed'?'두부의 회전을 막으면 이를 유지할 반력 모멘트가 생깁니다.':'회전이 자유로운 두부의 모멘트는 0이지만 지중에는 휨모멘트가 생깁니다.'}</strong><br>두부 내부 모멘트 M₀=${fmt(r.headInternalMoment)} kN·m, 지반이 말뚝에 가하는 총 수평력은 ${fmt(r.soilForce)} kN입니다. ${r.head==='fixed'?'회전을 구속하면 변위는 작아질 수 있지만 휨모멘트가 함께 작아진다고 단정할 수 없습니다.':'저장한 조건과 두부 구속을 비교해 변위와 모멘트의 변화 방향을 확인하세요.'}<span class="hint">특성 길이 ℓ=${fmt(r.characteristicLength,2)} m, L/ℓ=${fmt(r.lengthRatio,2)}입니다. 충분히 길어지면 추가 길이의 영향이 작아지는 경향이 나타나며, 정확한 전환 깊이를 임의로 고정하지 않습니다.</span>${r.maxRotation>.1?`<span class="notice">계산된 최대 회전이 ${fmt(r.maxRotation,2)} rad입니다. 큰 회전에서 이 소회전 선형 모형의 변위는 물리적 예측으로 해석할 수 없습니다. 0.1 rad는 여기서 큰 회전을 알리는 표시 기준이며 설계 허용값이 아닙니다.</span>`:''}`,
+      theory:`<div class="theory-grid"><div><div class="theory-formula">EI w⁗ + kℓw = 0<br>지반 힘 p = −kℓw<br>M = EI w″ · V = M′</div><p>EI=${fmt(r.EI/1000)} MN·m²<br>kℓ=${fmt(r.soilModulus/1000,2)} MN/m²<br>길이당 지반 힘 p: kN/m</p></div><div class="theory-meta"><strong>강성비와 경계</strong><p>ℓ = (4EI/kℓ)¹ᐟ⁴ = ${fmt(r.characteristicLength,2)} m<br>두부: V₀=P, ${r.head==='fixed'?'θ₀=0':'M₀=0'}<br>선단: ${r.tip==='fixed'?'wL=0, θL=0':'VL=0, ML=0'}</p><p>두부 외부 반력 모멘트 = ${fmt(r.headReactionMoment)} kN·m<br>선단 외부 수평반력 = ${fmt(r.tipForce)} kN</p></div></div>`,
+      method:`<h3>한 물리 모형, 두 출력</h3><p>수평변위와 휨모멘트는 같은 평형해의 표시 선택입니다. 두부에는 수평력만 가하며 작용 높이·상부 구조물·회전 스프링·두부 외부 재하 모멘트는 포함하지 않습니다. 회전 구속일 때 필요한 모멘트는 반력으로 계산하며 두부 수평이동을 막지 않습니다.</p><h3>단위와 부호</h3><p>p는 말뚝 둘레의 지반 작용을 합한 길이당 수평력(kN/m)이고, kℓ=p의 저항 크기/w는 kN/m²입니다. 기초 바닥의 면적당 반력을 변위로 나눈 kN/m³ 계수와 다릅니다. kℓ에 직경을 다시 곱하지 않습니다. 지표에서 아래로 z, 하중 방향 변위를 +w로 하며 지반 힘은 −kℓw입니다. 내부 모멘트 부호는 M=EIw″, 외부 두부 반력 모멘트는 −M₀입니다.</p><h3>수치 계산</h3><p>2절점 cubic Hermite 보 요소로 w·θ를 보간합니다. 굽힘 강성은 ∫EI N″ᵀN″dz, 연속 지반 강성은 kℓ∫NᵀNdz를 정확 적분합니다. 지지점을 임의로 잘라 고정하지 않습니다. 정해진 선단 경계를 직접 적용합니다.</p><p>모멘트와 전단력은 요소 끝 작용력 및 계산된 분포하중 p=−kℓw를 적분해 회복합니다. 접점에서 힘이 연속이고 각 요소의 힘·모멘트 평형을 만족합니다. 32→64 요소의 두부 변위 차이 0.5% 미만, 최대 |M| 차이 1% 미만과 전체 평형을 검사합니다. 이는 수치 수렴 기준이며 실무 정확도 보증이 아닙니다.</p><h3>적용 한계</h3><p>선형 스프링은 반력이 변위에 비례하고 크기 제한 없이 양방향으로 작용합니다. 지반의 소성 저항·틈 벌어짐, 비선형 p–y, 반복하중, 균열에 따른 EI 변화, P–Δ, 층상지반, 지표 위 자유길이, 군말뚝을 포함하지 않습니다. 입력 kℓ는 교육용 이상화 정수이며 특정 흙의 시험 결과 또는 자동 추정값이 아닙니다. 지지력이나 휨내력 합격을 판정하지 않습니다.</p><p>${source}<br>${beamSource}<br>${longSource}</p>`}),
+  }];
+})();

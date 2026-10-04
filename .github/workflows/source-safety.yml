@@ -1,0 +1,12 @@
+name: Source safety
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  source-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tools/check_source.py

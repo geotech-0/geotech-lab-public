@@ -1,0 +1,11 @@
+{
+  "format": "soil-sense-experiment",
+  "version": 4,
+  "experiment": {
+    "module": "excavation",
+    "question": "moment",
+    "current": {"height":8,"embedment":4,"EI":500000,"groundK":20000,"anchorK":50000,"preload":100,"installDepth":3,"anchorDepth":2,"phi":30,"gamma":18,"stage":"final"},
+    "baseline": {"height":6,"embedment":3,"EI":500000,"groundK":20000,"anchorK":50000,"preload":0,"installDepth":3,"anchorDepth":2,"phi":30,"gamma":18,"stage":"locked"},
+    "compare": true
+  }
+}
