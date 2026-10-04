@@ -63,7 +63,7 @@ test('public build succeeds with both originals absent and embeds only selected 
  const fixture=mkdtempSync(path.join(tmpdir(),'geotech-public-build-'));
  t.after(()=>rmSync(fixture,{recursive:true,force:true}));
  const omitted=new Set(Object.keys(publicExternalAssets));
- for(const entry of ['src','assets','build.mjs','source-manifest.cjs','build-asset-policy.mjs'])cpSync(path.join(root,entry),path.join(fixture,entry),{
+ for(const entry of ['src','assets','locales','build.mjs','source-manifest.cjs','build-asset-policy.mjs'])cpSync(path.join(root,entry),path.join(fixture,entry),{
   recursive:true,filter:source=>!omitted.has(path.relative(root,source).split(path.sep).join('/')),
  });
  for(const original of omitted)assert.equal(existsSync(path.join(fixture,original)),false);

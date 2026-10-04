@@ -86,7 +86,7 @@ function installLearningLibrary({service,getSnapshot,beforeCapture=()=>{},applyS
  const storageNote=el('p',undefined,'note'),status=el('p',undefined,'learning-library-status'),body=el('div');storageNote.id='learning-library-storage';status.id='learning-library-status';status.setAttribute('role','status');status.setAttribute('aria-live','polite');body.id='learning-library-body';dialog.append(header,tabs,storageNote,body,status);document.body.append(dialog);
  const routeBar=el('section',undefined,'learning-review-bar');routeBar.id='learning-review-bar';routeBar.hidden=true;routeBar.setAttribute('aria-label','선택한 짧은 복습');if(routeHost){const anchor=routeHost.querySelector('#intro');if(anchor)anchor.after(routeBar);else routeHost.prepend(routeBar);}
  let view='routes',previewId=null,feedback='',draftName='';
- function storageStatus(){const {persistent,message}=store.status();storageNote.textContent=message||'이 기기에 보관합니다. 기기 간 저장과 전체 백업은 상단 ‘저장·동기화’에서 확인하세요.';storageNote.classList.toggle('is-warning',!persistent);}
+ function storageStatus(){const {persistent,message}=store.status();storageNote.textContent=message||(globalThis.geotechCloud?'이 기기에 보관합니다. 기기 간 저장과 전체 백업은 상단 ‘저장·동기화’에서 확인하세요.':'이 브라우저에 보관합니다. 전체 백업은 상단 ‘내 자료 백업’에서 저장할 수 있습니다.');storageNote.classList.toggle('is-warning',!persistent);}
  function safely(action){try{action();storageStatus();}catch(error){status.textContent=error.message||'요청을 처리하지 못했습니다.';}}
  function open(){beforeCapture();store.load();previewId=null;feedback='';render();dialog.showModal();(view==='routes'?routesButton:examplesButton).focus();}
  dialog.addEventListener('close',()=>{trigger.focus({preventScroll:true});});

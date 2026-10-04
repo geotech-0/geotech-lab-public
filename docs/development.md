@@ -30,7 +30,8 @@ The generated HTML is a static app with selected embedded assets. Public hosting
 | `src/*.mjs` | Calculation engines, schemas, and data-reading modules. |
 | `src/labs/*.js`, `src/lab-registry.js` | Experiment descriptors, questions, defaults, and explicit registration. |
 | `src/app.js`, `src/learning-*.js` | Shared application state and lab UI. |
-| `src/visitor-guide.js` | English/Korean introduction and its separate browser language preference. |
+| `src/visitor-guide.js` | English/Korean introduction and persisted interface language. |
+| `src/i18n.js`, `locales/` | Presentation-only localization and source-indexed English messages. |
 | `src/shell.html`, `src/*.css` | Page shell and styles. |
 | `source-manifest.cjs`, `build.mjs` | Source selection and self-contained HTML generation. |
 | `build-asset-policy.mjs`, `public-release.json` | Public asset policy and explicit distribution marker. |
@@ -50,7 +51,13 @@ Only registered lab namespaces are included in the app. The build resolves refer
 3. Add meaningful tests for changed calculation or compatibility behavior. For UI changes, exercise the actual browser interaction and retained state.
 4. Run the checks in [validation](validation.md), including the public build when changing UI or source selection.
 
-The introduction language preference is separate from experiment inputs and workspace data. It does not translate the detailed Korean labs. Opening a featured lab preserves its existing inputs; the reproducible example files provide explicit assumed inputs for calculations.
+The interface language preference is separate from experiment inputs and workspace data. It translates DOM text, plot labels, accessibility attributes, dynamic results and worksheet reports. Calculation engines, input values, identifiers and saved JSON remain canonical. Opening a featured lab preserves its existing inputs; the reproducible example files provide explicit assumed inputs for calculations.
+
+## Maintaining translations
+
+Run `node tools/i18n-catalog.mjs` after changing source messages, then update `locales/en.json`. `locales/source.json` records source locations; dynamic `{{0}}` slots must survive unchanged. Complete messages are matched before dynamic templates. Unknown text stays visible and fails coverage checks; words are never replaced inside other words. Korean text is retained on the original DOM nodes so toggling back restores it exactly. The existing language storage key remains compatible.
+
+`npm test` checks catalogue coverage and placeholders, 40 modules/78 questions, the worksheet, option variants and empty numeric inputs. Run `node tools/i18n-audit.mjs /tmp/i18n-audit.json` and `node tools/i18n-variants.mjs /tmp/i18n-variants.json` for detailed reports. Text entered by users, source document titles, equations and data identifiers are not a promise of translated source material. Review English engineering terminology and long-label layout in the browser; string coverage alone does not certify translation quality or every possible input combination.
 
 ## Data and distribution
 

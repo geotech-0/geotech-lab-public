@@ -8,6 +8,7 @@ const root=path.dirname(fileURLToPath(import.meta.url));
 const read=file=>readFile(path.join(root,'src',file),'utf8');
 const publicBuild=process.argv.includes('--public');
 const externalAssets=evidenceAssetPolicy({publicBuild});
+const englishMessages=JSON.parse(await readFile(path.join(root,'locales/en.json'),'utf8'));
 const {scriptFiles}=collectSources(root,{publicBuild});
 const [shell,baseStyle,libraryStyle,worksheetStyle,excavationStyle,...scripts]=await Promise.all(['shell.html','style.css','learning-library.css','worksheet.css','excavation.css',...scriptFiles].map(read));
 const style=[baseStyle,libraryStyle,worksheetStyle,excavationStyle].join('\n');
@@ -17,7 +18,7 @@ const fontCss=`/* Pretendard v1.3.9 — Copyright Kil Hyung-jin. SIL OFL 1.1.\n$
 const source=scripts.map(s=>s.replace(/^export /gm,'')).join('\n');
 const assetPaths=[...new Set([...source.matchAll(/["'](assets\/(?:data|compaction)\/[^"'\s]+\.(?:csv|tsv|json|txt|md|pdf|xlsx))["']/g)].map(m=>m[1]))].filter(name=>!Object.hasOwn(externalAssets,name));
 const assets=Object.fromEntries(await Promise.all(assetPaths.map(async name=>{const encoding=/\.(pdf|xlsx)$/.test(name)?'base64':'utf8';return [name,{encoding,data:(await readFile(path.join(root,name))).toString(encoding)}];})));
-const script='const PACKAGED_DATA='+JSON.stringify(assets).replace(/</g,'\\u003c')+';\nconst EVIDENCE_ASSET_POLICY='+JSON.stringify(externalAssets).replace(/</g,'\\u003c')+';\n'+source;
+const script='const PACKAGED_DATA='+JSON.stringify(assets).replace(/</g,'\\u003c')+';\nconst EVIDENCE_ASSET_POLICY='+JSON.stringify(externalAssets).replace(/</g,'\\u003c')+';\nconst GEOTECH_EN_MESSAGES='+JSON.stringify(englishMessages).replace(/</g,'\\u003c')+';\n'+source;
 if(/<\/script/i.test(script))throw new Error('Script contains a closing script tag');
 new Script(script,{filename:'geotech-lab.js'});
 // A callback preserves JavaScript replacement tokens such as $`, $&, and $'.

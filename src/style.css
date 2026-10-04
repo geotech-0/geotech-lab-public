@@ -426,10 +426,10 @@ nav{display:block}.nav-group{margin:20px 0 0}.nav-group h2{font-size:11px;font-w
 @media print{.cloud-workspace-open,.cloud-workspace-dialog{display:none!important}}
 
 /* A focused visitor introduction sits alongside the unchanged Korean labs. */
-.visitor-language{display:flex;gap:2px;padding:3px;border:1px solid var(--color-border-default);border-radius:var(--radius-sm)}
+.visitor-language{display:flex;flex-shrink:0;gap:2px;padding:3px;border:1px solid var(--color-border-default);border-radius:var(--radius-sm)}
 [data-visitor-view=guide] #save-status,[data-visitor-view=guide] .cloud-workspace-open,[data-visitor-view=guide] #visitor-guide-open,[data-visitor-view=guide] #learning-library-open,[data-visitor-view=guide] #worksheet-open{display:none}
 [data-visitor-view=guide] .visitor-language{margin-left:auto}
-.visitor-language button{border:0;background:transparent;min-height:30px;padding:4px 9px;font-size:12px}
+.visitor-language button{white-space:nowrap;border:0;background:transparent;min-height:30px;padding:4px 9px;font-size:12px}
 .visitor-language button[aria-pressed=true]{background:var(--color-primary-soft);color:var(--color-action-primary-active)}
 #visitor-guide-open{border:0;background:transparent;min-height:32px;padding:4px 7px;font-size:12px}
 .visitor-guide{max-width:1120px;margin:0 auto;padding:64px 36px 40px}

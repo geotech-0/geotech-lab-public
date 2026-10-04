@@ -62,12 +62,12 @@ test('fresh visitors see the English introduction and can open existing labs wit
  const guide=api.installVisitorGuide({document:doc,storage:store,openExample:example=>opened.push(example)});
  assert.equal(doc.documentElement.lang,'en');assert.equal(guide.isOpen(),true);
  assert.equal(doc.ids['visitor-guide'].hidden,false);assert.equal(doc.ids['lab-workspace'].hidden,true);
- assert.match(doc.ids['visitor-guide'].innerHTML,/Detailed labs, controls and calculation notes are in Korean/);
+ assert.match(doc.ids['visitor-guide'].innerHTML,/Switch every lab, control, explanation and calculation note/);
  const original=doc.ids['lab-workspace'].innerHTML;
  doc.ids['visitor-guide'].click({selector:'[data-visitor-example]',dataset:{visitorExample:'settlement'}});
  assert.equal(opened[0].module,'layered-settlement');assert.equal(opened[0].question,'observation');
- assert.equal(doc.documentElement.lang,'ko');assert.equal(doc.ids['lab-workspace'].hidden,false);
- assert.equal(doc.ids['visitor-lab-note'].hidden,false);assert.equal(doc.ids.main.focused,true);
+ assert.equal(doc.documentElement.lang,'en');assert.equal(doc.ids['lab-workspace'].hidden,false);
+ assert.equal(doc.ids['visitor-lab-note'].hidden,true);assert.equal(doc.ids.main.focused,true);
  assert.equal(doc.ids['lab-workspace'].innerHTML,original);assert.equal(store.writes.length,0);
 });
 test('Korean selection preserves the workspace and reloads directly into the Korean experience',()=>{
@@ -75,7 +75,7 @@ test('Korean selection preserves the workspace and reloads directly into the Kor
  api.installVisitorGuide({document:doc,storage:store,openExample:example=>opened.push(example)});
  const original=doc.ids['lab-workspace'].innerHTML;
  chooseLanguage(doc,'ko');
- assert.equal(doc.documentElement.lang,'ko');assert.equal(doc.ids['visitor-guide'].hidden,true);
+ assert.equal(doc.documentElement.lang,'ko');assert.equal(doc.ids['visitor-guide'].hidden,false);
  assert.equal(doc.ids['visitor-lab-note'].hidden,true);assert.equal(doc.ids['lab-workspace'].innerHTML,original);
  assert.equal(doc.languageButtons[1].attrs['aria-pressed'],'true');assert.equal(opened.length,0);
  const reloaded=documentFixture();
@@ -101,7 +101,7 @@ test('featured routes exist in both builds and solve with the registered default
   }
  }
 });
-test('guide exclusively hides an open worksheet, Korean returns to it, and a featured example opens labs without changing worksheet inputs',()=>{
+test('language switching preserves an open worksheet; the guide and featured routes preserve its inputs',()=>{
  const doc=documentFixture(),store=storage({[api.VISITOR_LANGUAGE_KEY]:'ko'}),route={hash:'#worksheet'},opened=[];
  const worksheet=element();worksheet.innerHTML='<input id="project" value="기존 계산서"><input id="load" value="1400">';
  doc.ids['worksheet-root']=worksheet;doc.ids['lab-workspace'].hidden=true;
@@ -109,12 +109,13 @@ test('guide exclusively hides an open worksheet, Korean returns to it, and a fea
  const original=worksheet.innerHTML;
  assert.equal(worksheet.hidden,false);assert.equal(doc.ids['lab-workspace'].hidden,true);
  chooseLanguage(doc,'en');
- assert.equal(doc.ids['visitor-guide'].hidden,false);assert.equal(worksheet.hidden,true);assert.equal(doc.ids['lab-workspace'].hidden,true);
+ assert.equal(doc.ids['visitor-guide'].hidden,true);assert.equal(worksheet.hidden,false);assert.equal(doc.ids['lab-workspace'].hidden,true);
  assert.equal(route.hash,'#worksheet');assert.equal(worksheet.innerHTML,original);
  chooseLanguage(doc,'ko');
  assert.equal(doc.ids['visitor-guide'].hidden,true);assert.equal(worksheet.hidden,false);assert.equal(doc.ids['lab-workspace'].hidden,true);
  assert.equal(worksheet.focused,true);assert.equal(doc.skip.href,'#worksheet-root');
  chooseLanguage(doc,'en');
+ doc.ids['visitor-guide-open'].click();
  doc.ids['visitor-guide'].click({selector:'[data-visitor-example]',dataset:{visitorExample:'excavation'}});
  assert.equal(route.hash,'learn');assert.equal(worksheet.hidden,true);assert.equal(doc.ids['lab-workspace'].hidden,false);
  assert.equal(opened[0].module,'excavation');assert.equal(worksheet.innerHTML,original);

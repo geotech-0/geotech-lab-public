@@ -2,9 +2,9 @@
 
 **English** · [한국어](README.ko.md)
 
-An interactive geotechnical engineering learning tool for exploring how assumptions and inputs change ground response. It connects equations, editable parameters, comparison plots, and source notes across 40 Korean-language labs and a shallow-foundation worksheet.
+An interactive geotechnical engineering learning tool for exploring how assumptions and inputs change ground response. It connects equations, editable parameters, comparison plots, and source notes across 40 labs and a shallow-foundation worksheet, with English and Korean interfaces.
 
-Start with **staged excavation**: follow wall movement, bending moment, shear, and support forces through excavation, installation, lock-off, and backfill. Then explore **settlement inverse non-uniqueness**: see why one settlement observation cannot uniquely determine two layer moduli. The English/Korean introduction links to both examples; detailed labs, controls, and calculation notes remain in Korean. The introduction language is remembered in the current browser.
+Start with **staged excavation**: follow wall movement, bending moment, shear, and support forces through excavation, installation, lock-off, and backfill. Then explore **settlement inverse non-uniqueness**: see why one settlement observation cannot uniquely determine two layer moduli. The English/Korean introduction links to both examples. Switch the complete interface—including controls, dynamic results, plots, help, errors, and the worksheet—without resetting inputs. The selected language is remembered in the current browser.
 
 [Try the live demo](https://geotech-lab-public.geotech-tools.workers.dev/) · [Reproduce the examples](docs/examples.md) · [Run locally](#run-locally) · [Validation scope](docs/validation.md)
 
@@ -12,13 +12,13 @@ Start with **staged excavation**: follow wall movement, bending moment, shear, a
 
 ### 1. Staged excavation and support
 
-![Staged excavation example in the Korean lab](docs/images/staged-excavation.jpg)
+![Staged excavation in English](docs/images/staged-excavation-en.jpg)
 
 Inspect four result curves as excavation, support installation, prestressing, backfill, and removal change the response. The model uses Euler–Bernoulli wall beams, elastoplastic soil springs, and simplified support transfer. It is an educational model, with no claim of field-calibrated accuracy or equivalence to commercial software. [Inputs, equations, results, and checks](docs/examples.md#1-excavation-installation-lock-off-and-backfill).
 
 ### 2. Layered settlement and a conditional inverse
 
-![Layered settlement and monitoring example in the Korean lab](docs/images/layered-settlement.jpg)
+![Layered settlement inverse example in English](docs/images/layered-settlement-en.jpg)
 
 Vary the upper-layer constrained modulus and find different lower-layer moduli that reproduce one synthetic surface-settlement observation. The example assumes a uniform stress increase, completed drainage, and constant constrained modulus in each layer. [Explore what one observation can identify](docs/examples.md#2-layered-settlement-and-a-conditional-inverse).
 
@@ -27,7 +27,7 @@ Vary the upper-layer constrained modulus and find different lower-layer moduli t
 - Editable inputs, explicit units and assumptions, reference-state comparisons, and linked calculation notes.
 - Forty labs covering soil properties, groundwater and stress, deformation and strength, earth pressure and slopes, foundations and piles, and investigation and improvement.
 - Browser-local examples, review records, JSON backup/import, and a separate shallow-foundation worksheet.
-- A focused English/Korean introduction; the detailed Korean tools remain editable.
+- English/Korean navigation and detailed tools, with separate persisted language and calculation state.
 
 ![English visitor introduction](docs/images/visitor-guide.jpg)
 
